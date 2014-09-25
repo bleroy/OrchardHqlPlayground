@@ -1,0 +1,11 @@
+﻿Name: HQL Playground
+AntiForgery: enabled
+Author: Bertrand Le Roy
+Website: http://weblogs.asp.net/bleroy
+Version: 1.8
+OrchardVersion: 1.8
+Description: A tiny HQL query execution shell
+Features:
+    Bleroy.HqlPlayground:
+        Description: A tiny HQL query execution shell
+        Category: Developer

@@ -1,0 +1,52 @@
+﻿@using Orchard.ContentManagement
+<h1>@Html.TitleForPage(T("HQL Playground").ToString()) </h1>
+@using (Html.BeginFormAntiForgeryPost()) {
+    @Html.ValidationSummary()
+    <fieldset>
+        <label for="query">@T("Query")</label>
+        <textarea id="query" name="q" rows="15">@Model.Query</textarea>
+        @T("Result type:")
+        <input type="radio" id="type-content" name="resultType" value="content" checked="@(Model.ResultType == "content")"/>
+        <label for="type-content" class="forcheckbox">Content Ids</label>
+        <input type="radio" id="type-records" name="resultType" value="records" checked="@(Model.ResultType == "records")"/>
+        <label for="type-records" class="forcheckbox">Records</label>
+        <input type="radio" id="type-scalar" name="resultType" value="scalar" checked="@(Model.ResultType == "scalar")"/>
+        <label for="type-scalar" class="forcheckbox">Number (e.g. count)</label>
+        <div>
+            <input type="submit" value="@T("Run")" />
+        </div>
+    </fieldset>
+    <fieldset>
+        @if (Model.CountResult != -1) {
+        @T("Result: {0}", Model.CountResult)
+        }
+        @if (Model.ContentResults != null) {
+            <ul class="items">
+                @foreach (IContent entry in Model.ContentResults) {
+                    <li>
+                        @Html.ItemEditLink(
+                            entry.ContentItem.ContentManager.GetItemMetadata(entry.ContentItem).DisplayText,
+                            entry)
+                    </li>
+                }
+            </ul>
+            <div>
+                @T("Showing items 1-{0} out of {1}", Math.Min(Model.Pager.PageSize, Model.Pager.TotalItemCount), Model.Pager.TotalItemCount)
+            </div>
+        }
+        @if (Model.RecordResults != null) {
+            <table class="items">
+                @foreach (object[] record in Model.RecordResults) {
+                    <tr>
+                        @foreach (var col in record) {
+                            <td>@col</td>
+                        }
+                    </tr>
+                }
+            </table>
+            <div>
+                @T("Showing items 1-{0} out of {1}", Math.Min(Model.Pager.PageSize, Model.Pager.TotalItemCount), Model.Pager.TotalItemCount)
+            </div>
+        }
+    </fieldset>
+}
