@@ -72,8 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
-    <Content Include="Scripts\Web.config" />
-    <Content Include="Styles\Web.config" />
     <Content Include="Properties\AssemblyInfo.cs" />
     <Content Include="Module.txt" />
   </ItemGroup>
@@ -91,9 +89,7 @@
     <Compile Include="Controllers\HqlPlaygroundAdminController.cs" />
     <Compile Include="Menus\AdminMenu.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Views\HqlPlaygroundAdmin\Index.cshtml" />
   </ItemGroup>
