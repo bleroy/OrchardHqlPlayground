@@ -1,5 +1,7 @@
 ﻿@using Orchard.ContentManagement
-<h1>@Html.TitleForPage(T("HQL Playground").ToString()) </h1>
+@{
+    Layout.Title = T("HQL Playground").ToString();
+}
 @using (Html.BeginFormAntiForgeryPost()) {
     @Html.ValidationSummary()
     <fieldset>
