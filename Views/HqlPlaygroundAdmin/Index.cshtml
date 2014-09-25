@@ -6,7 +6,7 @@
     @Html.ValidationSummary()
     <fieldset>
         <label for="query">@T("Query")</label>
-        <textarea id="query" name="q" rows="15">@Model.Query</textarea>
+        <textarea id="query" name="q" rows="15" spellcheck="false">@Model.Query</textarea>
         @T("Result type:")
         <input type="radio" id="type-content" name="resultType" value="content" checked="@(Model.ResultType == "content")"/>
         <label for="type-content" class="forcheckbox">Content Ids</label>
