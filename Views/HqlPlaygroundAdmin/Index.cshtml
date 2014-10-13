@@ -22,7 +22,7 @@
         @if (Model.CountResult != -1) {
         @T("Result: {0}", Model.CountResult)
         }
-        @if (Model.ContentResults != null) {
+        else if (Model.ContentResults != null) {
             <ul class="items">
                 @foreach (IContent entry in Model.ContentResults) {
                     <li>
@@ -36,19 +36,22 @@
                 @T("Showing items 1-{0} out of {1}", Math.Min(Model.Pager.PageSize, Model.Pager.TotalItemCount), Model.Pager.TotalItemCount)
             </div>
         }
-        @if (Model.RecordResults != null) {
-            <table class="items">
-                @foreach (object[] record in Model.RecordResults) {
-                    <tr>
-                        @foreach (var col in record) {
-                            <td>@col</td>
-                        }
-                    </tr>
-                }
-            </table>
-            <div>
-                @T("Showing items 1-{0} out of {1}", Math.Min(Model.Pager.PageSize, Model.Pager.TotalItemCount), Model.Pager.TotalItemCount)
-            </div>
+        else if (Model.RecordResults != null) {
+	        <table class="items">
+		        @foreach (object[] record in Model.RecordResults) {
+			        <tr>
+				        @foreach (var col in record) {
+					        <td>@col</td>
+				        }
+			        </tr>
+		        }
+	        </table>
+	        <div>
+		        @T("Showing items 1-{0} out of {1}", Math.Min(Model.Pager.PageSize, Model.Pager.TotalItemCount), Model.Pager.TotalItemCount)
+	        </div>
+        }
+        else {
+	        @T("No results.")
         }
     </fieldset>
 }

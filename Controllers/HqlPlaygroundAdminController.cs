@@ -77,20 +77,22 @@ namespace Bleroy.HqlPlayground.Controllers {
                         .SetMaxResults(pager.PageSize)
                         .List();
 
-                    switch (resultType) {
-                        case "scalar":
-                            countResult = (long) queryResults[0];
-                            break;
-                        case "records":
-                            recordResults = queryResults.Cast<object[]>();
-                            break;
-                        default:
-                            var ids = queryResults[0] is int
-                                ? queryResults.Cast<int>()
-                                : queryResults.Cast<object[]>().Select(r => (int)r[0]);
-                            contentResults = _contentManager
-                                .GetMany<IContent>(ids, VersionOptions.Published, QueryHints.Empty);
-                            break;
+                    if (queryResults.Any()) {
+                        switch (resultType) {
+                            case "scalar":
+                                countResult = (long) queryResults[0];
+                                break;
+                            case "records":
+                                recordResults = queryResults.Cast<object[]>();
+                                break;
+                            default:
+                                var ids = queryResults[0] is int
+                                    ? queryResults.Cast<int>()
+                                    : queryResults.Cast<object[]>().Select(r => (int) r[0]);
+                                contentResults = _contentManager
+                                    .GetMany<IContent>(ids, VersionOptions.Published, QueryHints.Empty);
+                                break;
+                        }
                     }
                     pagerShape = Shape.Pager(pager).TotalItemCount(query.List().Count);
                 }
